@@ -1,16 +1,16 @@
 #' Classify PBMC SC data
 #'
 #' This generates new folder (internal function only)
-#' @param path_10x_data to generate
+#' @param path_10x_data path to 10x folder
 #' @param lower_gene_filter_num minimum number of genes that has to be detected in a cell
 #' @param upper_gene_filter_num maximum number of genes that can be detected in a cell
 #' @param percent_mito allowable percenatage of mitochondria DNA allowed
 #' @param downsampled if downsampled feature was used when cell ranger was run
 #' @param results_folder folder that results appear in (default: s1_quality_control_results)
 #' @import Seurat
-#' @import stringr
-#' @import rlist
-#' @keywords load data
+#' @import monocle3
+#' @import garnett
+#' @keywords cell type classification using garnett classifier 
 #' @export
 
 final_cds_garnett_classification <- function(cds_garnett) {
