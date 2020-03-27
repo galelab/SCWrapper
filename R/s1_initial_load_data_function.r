@@ -1,7 +1,7 @@
-#' Initially load data into Seaurat
+#' Initially load data into Seurat
 #'
 #' This generates new folder (internal function only)
-#' @param path_10x_data to generate
+#' @param path_10x_data path to 10x folder 
 #' @param lower_gene_filter_num minimum number of genes that has to be detected in a cell 
 #' @param upper_gene_filter_num maximum number of genes that can be detected in a cell
 #' @param percent_mito allowable percenatage of mitochondria DNA allowed
@@ -82,9 +82,9 @@ s1_load_data <- function(path_10_data, sample_names,
     )
     ggsave(paste0(results_path, "VnPlotMt_Filtered.png"), dpi = 300)
 
-    if (celltype_garnett.isTRUE()) {
-        
-    }
+    # if (celltype_garnett.isTRUE()) {
+
+    # }
 
     pbmc <- ScaleData(pbmc, vars.to.regress = "percent.mt", features = all.genes, verbose = FALSE)
     all.genes <- rownames(pbmc)
