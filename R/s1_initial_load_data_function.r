@@ -62,6 +62,7 @@ s1_load_data <- function(path_10_data, sample_names,
         }
         anchors <- FindIntegrationAnchors(object.list = pbmc_list, dims = 1:20)
         pbmc <- IntegrateData(anchorset = anchors, dims = 1:20)
+        pbmc$sample <- pbmc$orig.ident
     }
 
     pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-")
