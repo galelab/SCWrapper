@@ -1,12 +1,12 @@
 #' Classify PBMC SC data
 #'
 #' This generates new folder (internal function only)
+#' @param seurat_data filtered data from seurat
 #' @param path_10x_data path to 10x folder
-#' @param lower_gene_filter_num minimum number of genes that has to be detected in a cell
-#' @param upper_gene_filter_num maximum number of genes that can be detected in a cell
-#' @param percent_mito allowable percenatage of mitochondria DNA allowed
-#' @param downsampled if downsampled feature was used when cell ranger was run
-#' @param results_folder folder that results appear in (default: s1_quality_control_results)
+#' @param marker_file_path path to the marker file needed for garnett classification
+#' @param pbmc_classifier path to pre built classifier if one is being used (defualt is to build its own classifier)
+#' @param cds_gene_type type of gene ID (defualt is Ensembl)
+#' @param results_folder path to results of analysis (defualt is s2_garnett_classifier_results)
 #' @import Seurat
 #' @import monocle3
 #' @import garnett
@@ -63,7 +63,7 @@ final_cds_garnett_classification <- function(cds_garnett) {
     return(cds_garnett)
 }
 
-classify_pbmc_cells <- function(seurat_data, sample_path,
+classify_pbmc_cells <- function(seurat_data, path_10x_data,
                                 marker_file_path,
                                 pbmc_classifier = FALSE,
                                 cds_gene_type = "ENSEMBL",
@@ -150,20 +150,28 @@ classify_pbmc_cells <- function(seurat_data, sample_path,
         color_cells_by = "cluster_ext_type",
         label_cell_groups = FALSE
     )
-    ggsave(paste0(results_path, "Umap_cluster_ext_type.png"), dpi = 500)
+
+    ggsave(paste0(results_path, "Umap_cluster_ext_type.png"),
+        width = 5, height = 5, dpi = 500
+    )
 
     plot_cells(rpbmc_cds,
         group_cells_by = "cluster",
         color_cells_by = "cell_type",
         label_cell_groups = FALSE
     )
-    ggsave(paste0(results_path, "Umap_cell_type.png"), dpi = 500)
+    ggsave(paste0(results_path, "Umap_cell_type.png"),
+        width = 5, height = 5, dpi = 500
+    )
 
     plot_cells(rpbmc_cds,
         color_cells_by = "cluster_ext_type_final",
         label_cell_groups = FALSE
     )
-    ggsave(paste0(results_path, "Umap_cluster_ext_type_final.png"), dpi = 500)
+    ggsave(paste0(results_path, "Umap_cluster_ext_type_final.png"),
+        width = 5, height = 5,
+        dpi = 500
+    )
 
     seurat_data[["garnett_cluster_extend"]] <- rpbmc_cds$cluster_ext_type_final
 
