@@ -63,13 +63,14 @@ s1_load_data <- function(path_10_data, sample_names,
         anchors <- FindIntegrationAnchors(object.list = pbmc_list, dims = 1:20)
         pbmc <- IntegrateData(anchorset = anchors, dims = 1:20)
     }
+
     pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-")
 
     VlnPlot(pbmc,
         features = c("nFeature_RNA", "nCount_RNA", "percent.mt"),
         ncol = 3, group.by = "sample", pt.size = 0.8
     )
-    ggsave(paste0(results_path, "VnPlotMt.png"), dpi = 300)
+    ggsave(paste0(results_path, "VnPlotMt.png"), width = 8, height = 6, dpi = 300)
     
     pbmc <- subset(pbmc,
        subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 10
@@ -80,11 +81,7 @@ s1_load_data <- function(path_10_data, sample_names,
         group.by = "sample", pt.size = 0.8,
         ncol = 3
     )
-    ggsave(paste0(results_path, "VnPlotMt_Filtered.png"), dpi = 300)
-
-    # if (celltype_garnett.isTRUE()) {
-
-    # }
+    ggsave(paste0(results_path, "VnPlotMt_Filtered.png"), width = 8, height = 6, dpi = 300)
 
     pbmc <- ScaleData(pbmc, vars.to.regress = "percent.mt", features = all.genes, verbose = FALSE)
     all.genes <- rownames(pbmc)
@@ -109,6 +106,5 @@ s1_load_data <- function(path_10_data, sample_names,
     DimPlot(pbmc_norm, reduction = "umap", group.by = "sample")
     ggsave(paste0(results_path, "UMAP_sample.png"), dpi = 300)
 
-    saveRDS(pbmc, paste0(results_path, "SC_pbmc_norm_object.rds"))
-
+    return(pbmc)
 }

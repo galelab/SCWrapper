@@ -175,5 +175,7 @@ classify_pbmc_cells <- function(seurat_data, path_10x_data,
 
     seurat_data[["garnett_cluster_extend"]] <- rpbmc_cds$cluster_ext_type_final
 
+    saveRDS(pbmc, paste0(results_path, "SC_pbmc_norm_object.rds"))
+
     return(seurat_data)
 }
