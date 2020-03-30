@@ -22,7 +22,7 @@ s1_load_data <- function(path_10_data, sample_names,
     results_path <- generate_folder(results_folder)
     unlink(paste0(results_folder, "/*"))
 
-    if (downsampled.isTRUE()) {
+    if (isTRUE(downsampled)) {
         print("STATUS: Read 10x downsampled object")
         pbmc_data <- Read10X(data.dir = path_10_data)
 
