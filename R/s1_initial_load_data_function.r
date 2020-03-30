@@ -75,7 +75,7 @@ s1_load_data <- function(path_10_data, sample_names,
         features = c("nFeature_RNA", "nCount_RNA", "percent.mt"),
         ncol = 3, group.by = "sample", pt.size = 0.8
     )
-    ggsave(paste0(results_path, "VnPlotMt.png"),
+    ggsave(paste0(results_path, "/VnPlotMt.png"),
         width = 8, height = 6, dpi = 300
     )
 
@@ -89,7 +89,7 @@ s1_load_data <- function(path_10_data, sample_names,
         group.by = "sample", pt.size = 0.8,
         ncol = 3
     )
-    ggsave(paste0(results_path, "VnPlotMt_Filtered.png"),
+    ggsave(paste0(results_path, "/VnPlotMt_Filtered.png"),
         width = 8, height = 6, dpi = 300
     )
 
@@ -120,7 +120,7 @@ s1_load_data <- function(path_10_data, sample_names,
         pbmc <- RunTSNE(pbmc, reduction = "pca", dims = 1:20)
     }
     DimPlot(pbmc, reduction = "umap", group.by = "sample")
-    ggsave(paste0(results_path, "UMAP_sample.png"), dpi = 300)
+    ggsave(paste0(results_path, "/UMAP_sample.png"), dpi = 300)
 
     return(pbmc)
 }
