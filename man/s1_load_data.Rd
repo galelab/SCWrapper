@@ -11,7 +11,8 @@ s1_load_data(
   upper_gene_filter_num = 2500,
   percent_mito = 10,
   downsampled = TRUE,
-  celltype_garnett = TRUE,
+  run_umap = TRUE,
+  run_tsne = FALSE,
   results_folder = "s1_quality_control_results"
 )
 }
@@ -23,6 +24,10 @@ s1_load_data(
 \item{percent_mito}{allowable percenatage of mitochondria DNA allowed}
 
 \item{downsampled}{if downsampled feature was used when cell ranger was run}
+
+\item{run_umap}{run umap for feature reduction}
+
+\item{run_tsne}{run tsne for feature reduction}
 
 \item{results_folder}{folder that results appear in (default: s1_quality_control_results)}
 
