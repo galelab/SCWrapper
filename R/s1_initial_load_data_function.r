@@ -90,11 +90,12 @@ s1_load_data <- function(path_10_data, sample_names,
         width = 8, height = 6, dpi = 300
     )
 
+    all.genes <- rownames(pbmc)
+
     pbmc <- ScaleData(pbmc,
         vars.to.regress = "percent.mt",
         features = all.genes, verbose = FALSE
     )
-    all.genes <- rownames(pbmc)
 
     pbmc <- NormalizeData(pbmc,
         normalization.method = "LogNormalize",
