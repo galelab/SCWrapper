@@ -54,10 +54,10 @@ s1_load_data <- function(path_10_data, sample_names,
         counter <- 1
         pbmc_list <- list()
         for (path in path_10_data) {
-            print(path)
+            print(paste0("STATUS: Loading ", path, " ", sample_names[counter]))
             pbmc_data <- Read10X(data.dir = path)
             pbmc <- CreateSeuratObject(counts = pbmc_data,
-                project = sampleID,
+                project = sample_names[counter],
                 min.cells = 1,
                 min.features = lower_gene_filter_num
             )
