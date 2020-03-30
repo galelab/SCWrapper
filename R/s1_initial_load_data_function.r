@@ -57,7 +57,7 @@ s1_load_data <- function(path_10_data, sample_names,
                 min.cells = 1,
                 min.features = lower_gene_filter_num
             )
-            list.append(pbmc_list, sample_names[counter] = pbmc)
+            list.append(pbmc_list, sample_names[counter] <- pbmc)
             counter <- counter + 1
         }
         anchors <- FindIntegrationAnchors(object.list = pbmc_list, dims = 1:20)
