@@ -1,7 +1,7 @@
 #' Initially load data into Seurat
 #'
 #' This generates new folder (internal function only)
-#' @param path_10x_data path to 10x folder 
+#' @param path_10x_data path to 10x folder
 #' @param lower_gene_filter_num minimum number of genes that has to be detected in a cell 
 #' @param upper_gene_filter_num maximum number of genes that can be detected in a cell
 #' @param percent_mito allowable percenatage of mitochondria DNA allowed
@@ -71,20 +71,27 @@ s1_load_data <- function(path_10_data, sample_names,
         features = c("nFeature_RNA", "nCount_RNA", "percent.mt"),
         ncol = 3, group.by = "sample", pt.size = 0.8
     )
-    ggsave(paste0(results_path, "VnPlotMt.png"), width = 8, height = 6, dpi = 300)
-    
+    ggsave(paste0(results_path, "VnPlotMt.png"),
+        width = 8, height = 6, dpi = 300
+    )
+
     pbmc <- subset(pbmc,
        subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 10
     )
-    
+
     VlnPlot(pbmc,
         features = c("nFeature_RNA", "nCount_RNA", "percent.mt"),
         group.by = "sample", pt.size = 0.8,
         ncol = 3
     )
-    ggsave(paste0(results_path, "VnPlotMt_Filtered.png"), width = 8, height = 6, dpi = 300)
+    ggsave(paste0(results_path, "VnPlotMt_Filtered.png"),
+        width = 8, height = 6, dpi = 300
+    )
 
-    pbmc <- ScaleData(pbmc, vars.to.regress = "percent.mt", features = all.genes, verbose = FALSE)
+    pbmc <- ScaleData(pbmc,
+        vars.to.regress = "percent.mt",
+        features = all.genes, verbose = FALSE
+    )
     all.genes <- rownames(pbmc)
 
     pbmc <- NormalizeData(pbmc,
