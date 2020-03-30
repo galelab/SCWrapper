@@ -6,6 +6,8 @@
 #' @param upper_gene_filter_num maximum number of genes that can be detected in a cell
 #' @param percent_mito allowable percenatage of mitochondria DNA allowed
 #' @param downsampled if downsampled feature was used when cell ranger was run
+#' @param run_umap run umap for feature reduction
+#' @param run_tsne run tsne for feature reduction
 #' @param results_folder folder that results appear in (default: s1_quality_control_results)
 #' @import Seurat
 #' @import stringr
@@ -18,7 +20,7 @@ s1_load_data <- function(path_10_data, sample_names,
                          lower_gene_filter_num=200,
                          upper_gene_filter_num=2500,
                          percent_mito=10, downsampled=TRUE,
-                         celltype_garnett=TRUE,
+                         run_umap=TRUE, run_tsne=FALSE,
                          results_folder="s1_quality_control_results") {
     results_path <- generate_folder(results_folder)
     unlink(paste0(results_folder, "/*"))
@@ -77,6 +79,7 @@ s1_load_data <- function(path_10_data, sample_names,
         width = 8, height = 6, dpi = 300
     )
 
+    print("STATUS: Filtering out cells")
     pbmc <- subset(pbmc,
        subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 10
     )
@@ -90,12 +93,8 @@ s1_load_data <- function(path_10_data, sample_names,
         width = 8, height = 6, dpi = 300
     )
 
+    print("STATUS: Normalize data")
     all.genes <- rownames(pbmc)
-
-    pbmc <- ScaleData(pbmc,
-        vars.to.regress = "percent.mt",
-        features = all.genes, verbose = FALSE
-    )
 
     pbmc <- NormalizeData(pbmc,
         normalization.method = "LogNormalize",
@@ -111,10 +110,16 @@ s1_load_data <- function(path_10_data, sample_names,
         vars.to.regress = "percent.mt",
         features = all.genes, verbose = FALSE
     )
-    pbmc <- RunPCA(pbmc, npcs = 30, verbose = FALSE)
-    pbmc <- RunUMAP(pbmc, reduction = "pca", dims = 1:20)
 
-    DimPlot(pbmc_norm, reduction = "umap", group.by = "sample")
+    print("STATUS: feature reduction")
+    pbmc <- RunPCA(pbmc, npcs = 30, verbose = FALSE)
+    if (isTRUE(run_umap)) {
+        pbmc <- RunUMAP(pbmc, reduction = "pca", dims = 1:20)
+    }
+    if (isTRUE(run_tsne)) {
+        pbmc <- RunTSNE(pbmc, reduction = "pca", dims = 1:20)
+    }
+    DimPlot(pbmc, reduction = "umap", group.by = "sample")
     ggsave(paste0(results_path, "UMAP_sample.png"), dpi = 300)
 
     return(pbmc)
