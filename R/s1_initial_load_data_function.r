@@ -10,6 +10,7 @@
 #' @import Seurat
 #' @import stringr
 #' @import rlist
+#' @import ggplot2
 #' @keywords load data
 #' @export
 
@@ -51,6 +52,7 @@ s1_load_data <- function(path_10_data, sample_names,
         counter <- 1
         pbmc_list <- list()
         for (path in path_10_data) {
+            print(path)
             pbmc_data <- Read10X(data.dir = path)
             pbmc <- CreateSeuratObject(counts = pbmc_data,
                 project = sampleID,
