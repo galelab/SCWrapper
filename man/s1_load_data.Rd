@@ -11,8 +11,10 @@ s1_load_data(
   upper_gene_filter_num = 2500,
   percent_mito = 10,
   downsampled = TRUE,
+  top_variable_genes = 10,
   run_umap = TRUE,
   run_tsne = FALSE,
+  save_object = TRUE,
   results_folder = "s1_quality_control_results"
 )
 }
@@ -25,9 +27,13 @@ s1_load_data(
 
 \item{downsampled}{if downsampled feature was used when cell ranger was run}
 
+\item{top_variable_genes}{how many genes to label in variablity plots (defualt is 10)}
+
 \item{run_umap}{run umap for feature reduction}
 
 \item{run_tsne}{run tsne for feature reduction}
+
+\item{save_object}{save seurat normalized object in RDS file so this step doesn't have to be redone everytime (defualt is TRUE)}
 
 \item{results_folder}{folder that results appear in (default: s1_quality_control_results)}
 
