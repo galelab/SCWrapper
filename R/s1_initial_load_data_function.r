@@ -102,7 +102,7 @@ s1_load_data <- function(path_10_data, sample_names=FALSE,
             pbmc_data <- Read10X(data.dir = path)
             pbmc <- CreateSeuratObject(counts = pbmc_data,
                 project = sample_names[counter],
-                min.cells = 1,
+                min.cells = 1, names.delim = "-",
                 min.features = lower_gene_filter_num
             )
             pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-")
