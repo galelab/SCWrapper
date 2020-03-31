@@ -2,6 +2,7 @@
 #'
 #' This generates new folder (internal function only)
 #' @param path_10x_data path to 10x folder
+#' @param sample_names list of sample names (used when downsampling is FALSE) (default is FALSE)
 #' @param lower_gene_filter_num minimum number of genes that has to be detected in a cell 
 #' @param upper_gene_filter_num maximum number of genes that can be detected in a cell
 #' @param percent_mito allowable percenatage of mitochondria DNA allowed
@@ -18,7 +19,7 @@
 #' @keywords load data
 #' @export
 
-s1_load_data <- function(path_10_data, sample_names,
+s1_load_data <- function(path_10_data, sample_names=FALSE,
                          lower_gene_filter_num=200,
                          upper_gene_filter_num=2500,
                          percent_mito=10, downsampled=TRUE,
@@ -173,12 +174,12 @@ s1_load_data <- function(path_10_data, sample_names,
     )
 
     print("STATUS: feature reduction")
-    pbmc <- RunPCA(combined, npcs = 30, verbose = FALSE)
+    combined <- RunPCA(combined, npcs = 30, verbose = FALSE)
     if (isTRUE(run_umap)) {
-        pbmc <- RunUMAP(combined, reduction = "pca", dims = 1:20)
+        combined <- RunUMAP(combined, reduction = "pca", dims = 1:20)
     }
     if (isTRUE(run_tsne)) {
-        pbmc <- RunTSNE(combined, reduction = "pca", dims = 1:20)
+        combined <- RunTSNE(combined, reduction = "pca", dims = 1:20)
     }
     DimPlot(combined, reduction = "umap", group.by = "sample")
     ggsave(paste0(results_path, "/UMAP_sample.png"), dpi = 300)
