@@ -160,8 +160,7 @@ s1_load_data <- function(path_10_data, sample_names=FALSE,
 
         anchors <- FindIntegrationAnchors(object.list = pbmc_list, dims = 1:20)
         combined <- IntegrateData(
-            anchorset = anchors,
-            features.to.integrate = rownames(pbmc), dims = 1:20
+            anchorset = anchors, dims = 1:20
         )
         combined$sample <- combined$orig.ident
     }

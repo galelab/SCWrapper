@@ -6,7 +6,7 @@
 \usage{
 s1_load_data(
   path_10_data,
-  sample_names,
+  sample_names = FALSE,
   lower_gene_filter_num = 200,
   upper_gene_filter_num = 2500,
   percent_mito = 10,
@@ -19,6 +19,8 @@ s1_load_data(
 )
 }
 \arguments{
+\item{sample_names}{list of sample names (used when downsampling is FALSE) (default is FALSE)}
+
 \item{lower_gene_filter_num}{minimum number of genes that has to be detected in a cell}
 
 \item{upper_gene_filter_num}{maximum number of genes that can be detected in a cell}
