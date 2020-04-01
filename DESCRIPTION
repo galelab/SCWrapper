@@ -1,25 +1,14 @@
 Package: SCWrapper
-Title: Single Cell Analysis Wrapper 
+Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Leanne",
-           family = "Whitmore",
+    person(given = "First",
+           family = "Last",
            role = c("aut", "cre"),
-           email = "leanne382gmail.com",
+           email = "first.last@example.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
 License: What license it uses
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
-Imports:
-    Seurat,
-    stringr,
-    rlist,
-    ggplot2,
-    monocle3,
-    garnett,
-    dplyr,
-    SingleCellExperiment,
-    data.table,
-    org.Hs.eg.db
