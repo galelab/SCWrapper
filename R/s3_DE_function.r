@@ -23,7 +23,8 @@ s3_DE_analysis <- function(pbmc, ident_1, ident_2, LFC = 0.26,
     print("STATUS: performing DE analysis")
 
     results_path <- generate_folder(results_folder)
-    results_path <- generate_folder(paste0(results_folder, ident_1, "_", ident_2))
+    results_path <- generate_folder(paste0(results_folder, "/", ident_1, "_", ident_2))
+
     unlink(paste0(results_path, "/*"))
 
     Idents(pbmc) <- pbmc$sample
@@ -132,7 +133,7 @@ get_DE_between_conditions <- function(pbmc, ident_1, ident_2,
     write.table(data.frame(DEgenes),
         paste0(
             results_folder,
-            "DEgenes_full_",
+            "/DEgenes_full_",
             ident_1,
             "_", ident_2,
             ".txt"
@@ -154,11 +155,11 @@ get_DE_between_conditions <- function(pbmc, ident_1, ident_2,
     } else {
         print("No significant DE genes")
     }
-    print(dim(DE_sig_final))
+
     write.table(data.frame(DE_sig_final),
         paste0(
             results_folder,
-            "DEgenes_sig_",
+            "/DEgenes_sig_",
             ident_1, "_", ident_2,
             ".txt"
         ),
