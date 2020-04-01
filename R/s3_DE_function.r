@@ -23,12 +23,16 @@ s3_DE_analysis <- function(pbmc, ident_1, ident_2, LFC = 0.26,
     print("STATUS: performing DE analysis")
 
     results_path <- generate_folder(results_folder)
-    results_path <- generate_folder(paste0(results_path, "/", ident_1, "_", ident_2))
+    results_path <- generate_folder(paste0(results_folder, ident_1, "_", ident_2))
     unlink(paste0(results_path, "/*"))
 
+    Idents(pbmc) <- pbmc$sample
+    print (Idents(pbmc))
+    print (ident_1)
+    print (ident_2)
     im.markers <- get_DE_between_conditions(
-        ident_1, ident_2,
         pbmc,
+        ident_1, ident_2,
         results_path,
         LFC = LFC,
         pvalue = pvalue
@@ -48,9 +52,10 @@ s3_DE_analysis <- function(pbmc, ident_1, ident_2, LFC = 0.26,
 
             if ((count_cells_1 > 3) && (count_cells_2 > 3)) {
                 im.markers <- get_DE_between_conditions(
+                    pbmc,
                     paste0(ident_1, "-", cluster),
                     paste0(ident_2, "-", cluster),
-                    pbmc, results_path,
+                    results_path,
                     LFC = LFC,
                     pvalue = pvalue
                 )
