@@ -33,8 +33,8 @@ SCWrapper currently has 3 primary functions
 
 
 ## Other important notes 
-1.  <a href="https://satijalab.org/seurat/" target="_blank">  The single cell R library Seuratis used in this Wrapper.  
-2.  <a href="https://cole-trapnell-lab.github.io/garnett/docs/" target="_blank"> The cell type classifier garnett is used in this Wrapper.
+*  <a href="https://satijalab.org/seurat/" target="_blank">  The single cell R library Seuratis used in this Wrapper.  
+*  <a href="https://cole-trapnell-lab.github.io/garnett/docs/" target="_blank"> The cell type classifier garnett is used in this Wrapper.
 
 ## References 
 * Integrating single-cell transcriptomic data across different conditions, technologies, and species Butler et al. 2018 <a href="https://www.nature.com/articles/nbt.4096" target="_blank">
