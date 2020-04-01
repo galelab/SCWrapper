@@ -103,7 +103,7 @@ s3_DE_analysis <- function(pbmc, ident_1, ident_2, LFC = 0.26,
                     group.by = "garnett_cluster_extend",
                     pt.size = 0, combine = FALSE
                 )
-                ggsave(paste0(results_path, gene, "_Vnplot.png"), dpi = 300)
+                ggsave(paste0(result_path, gene, "_Vnplot.png"), dpi = 300)
             }
         }
     }
