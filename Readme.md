@@ -37,5 +37,5 @@ SCWrapper currently has 3 primary functions
 2.  <a href="https://cole-trapnell-lab.github.io/garnett/docs/" target="_blank"> The cell type classifier garnett is used in this Wrapper.
 
 ## References 
-1. Integrating single-cell transcriptomic data across different conditions, technologies, and species Butler et al. 2018 <a href="https://www.nature.com/articles/nbt.4096" target="_blank">
-2. Supervised classification enables rapid annotation of cell atlases Pilner et al. 2019 <a href="https://www.nature.com/articles/s41592-019-0535-3" target="_blank">
+* Integrating single-cell transcriptomic data across different conditions, technologies, and species Butler et al. 2018 <a href="https://www.nature.com/articles/nbt.4096" target="_blank">
+* Supervised classification enables rapid annotation of cell atlases Pilner et al. 2019 <a href="https://www.nature.com/articles/s41592-019-0535-3" target="_blank">
