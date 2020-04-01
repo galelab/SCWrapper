@@ -9,7 +9,7 @@ First load library('devtools'). If you do not have devtools run install.packages
 
 ## How to execute pipeline
 SCWrapper currently has 3 primary functions
-1. s1_load_data - function will load and normalize single cell gene expression data using Seurat.  Data can be loaded in two ways: 1) import downsampled data from CellRanger agg function or 2) load individual analyses from CellRanger count.  Seurat parameters for loading data are all defualt except for min.cells which is set equal to 1 instead of 3 and names.delim which is set to "-".  All results will be outputed into the defualt results folder s1_quality_control_results/ in your working directory. Examples below:
+1. s1_load_data - function will load and normalize single cell gene expression data using Seurat.  Data can be loaded in two ways: 1) import downsampled data from CellRanger agg function or 2) load individual analyses from CellRanger count.  Seurat parameters for loading data are all defualt except for min.cells which is set equal to 1 instead of 3 and names.delim which is set to "-".  All results will be outputed into the defualt results folder s1_quality_control_results/ in your working directory. Examples below
 
 ⋅⋅* downsample example: pbmc <- s1_load_data("/path/to/Fresh_Aggregate/outs/filtered_feature_bc_matrix", downsampled=TRUE)
 ⋅⋅* Individual sample example: pbmc <- s1_load_data(c("path/to/sample1/outs/filtered_feature_bc_matrix/", "path/to/sample2/ outs/filtered_feature_bc_matrix"), sample_names=c("sample1", "sample2"), downsampled=FALSE)
