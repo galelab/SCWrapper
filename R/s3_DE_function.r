@@ -8,14 +8,14 @@
 #' @param pvalue pvalue (FDR cutoff (default 0.05)
 #' @param clusters_DE perform DE on individual clusters in ident_1 & 2 (defualt is TRUE, needs s2_cellclasify_garnett to have been run)
 #' @param individual_gene_plots generate individual violin plots for every DE gene (defualt is FALSE)
-#' @param results_folder path to results of analysis (defualt is s2_garnett_classifier_results)
+#' @param result_folder path to results of analysis (defualt is s2_garnett_classifier_results)
 #' @import Seurat
 #' @import org.Hs.eg.db
 #' @import dplyr
 #' @keywords perform differential gene analysis
 #' @export
 #'
-get_DE_between_conditions <- function(ident_1, ident_2, pbmc,
+get_DE_between_conditions <- function(pbmc, ident_1, ident_2,
                                       result_folder, LFC = 0.26,
                                       pvalue = 0.05) {
     print("STATUS: getting DEs...")
@@ -37,7 +37,7 @@ get_DE_between_conditions <- function(ident_1, ident_2, pbmc,
     )
     write.table(data.frame(DEgenes),
         paste0(
-            result_folder,
+            results_path,
             "DEgenes_full_",
             ident_1,
             "_", ident_2,
@@ -64,7 +64,7 @@ get_DE_between_conditions <- function(ident_1, ident_2, pbmc,
     print(dim(DE_sig_final))
     write.table(data.frame(DE_sig_final),
         paste0(
-            result_folder,
+            results_path,
             "DEgenes_sig_",
             ident_1, "_", ident_2,
             ".txt"
@@ -73,21 +73,20 @@ get_DE_between_conditions <- function(ident_1, ident_2, pbmc,
     )
     return(DE_sig_final)
 }
-perform_DE_analysis <- function(pbmc, ident_1, ident_2, LFC = 0.26,
+s3_DE_analysis <- function(pbmc, ident_1, ident_2, LFC = 0.26,
                                 pvalue = 0.05, clusters_DE = TRUE,
                                 individual_gene_plots = FALSE,
                                 result_folder = "s3_DE_results") {
     print("STATUS: performing DE analysis")
 
     results_path <- generate_folder(result_folder)
-    unlink(paste0(result_folder, "/*"))
+    results_path <- generate_folder(paste0(results_path, "/", ident_1, "_", ident_2))
+    unlink(paste0(results_path, "/*"))
 
-    print(result_folder)
-    # # print(Idents(pbmc))
     im.markers <- get_DE_between_conditions(
         ident_1, ident_2,
         pbmc,
-        result_folder,
+        results_path,
         LFC = LFC,
         pvalue = pvalue
     )
@@ -109,7 +108,7 @@ perform_DE_analysis <- function(pbmc, ident_1, ident_2, LFC = 0.26,
                 im.markers <- get_DE_between_conditions(
                     paste0(ident_1, "-", cluster),
                     paste0(ident_2, "-", cluster),
-                    pbmc, result_folder,
+                    pbmc, results_path,
                     LFC = LFC,
                     pvalue = pvalue
                 )
@@ -129,25 +128,29 @@ perform_DE_analysis <- function(pbmc, ident_1, ident_2, LFC = 0.26,
                         size = 2.5,
                         features = rownames(im.markers)
                     )
-                    ggsave(paste0(result_folder, "heatmap_", cluster, ".png"),
+                    ggsave(paste0(results_path, "heatmap_", cluster, ".png"),
                         width = 11, dpi = 300
                     )
 
                     VlnPlot(immune.small, features = head(rownames(im.markers)))
 
                     ggsave(paste0(
-                        result_folder, "Vnplot_",
+                        results_path, "Vnplot_",
                         cluster, ".png"
                     ),
                     width = 11, dpi = 300
                     )
                 }
             } else {
-                print(paste0("STATUS: not enough cells in cluster ", cluster, " ident 1 or 2 to do DE analysis"))
+                print(paste0(
+                    "STATUS: not enough cells in cluster ",
+                    cluster,
+                    " ident 1 or 2 to do DE analysis"
+                ))
             }
         }
         if (individual_gene_plots == TRUE) {
-            results_path <- generate_folder(paste0(result_folder, "IndividualGenePlots/"))
+            results_path <- generate_folder(paste0(result_path, "IndividualGenePlots/"))
             # unlink(paste0(result_folder, "/*"))
             for (gene in unique(allmarkers)) {
                 VlnPlot(pbmc,
