@@ -134,7 +134,7 @@ get_DE_between_conditions <- function(pbmc, ident_1, ident_2,
     )
     write.table(data.frame(DEgenes),
         paste0(
-            results_path,
+            results_folder,
             "DEgenes_full_",
             ident_1,
             "_", ident_2,
@@ -142,8 +142,7 @@ get_DE_between_conditions <- function(pbmc, ident_1, ident_2,
         ),
         sep = "\t", quote = FALSE
     )
-    print(dim(DEgenes))
-    print(length(DEgenes))
+
     DEgenes[["gene_name"]] <- rownames(DEgenes)
 
     DE_sig_final <- DEgenes %>%
@@ -161,7 +160,7 @@ get_DE_between_conditions <- function(pbmc, ident_1, ident_2,
     print(dim(DE_sig_final))
     write.table(data.frame(DE_sig_final),
         paste0(
-            results_path,
+            results_folder,
             "DEgenes_sig_",
             ident_1, "_", ident_2,
             ".txt"
