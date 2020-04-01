@@ -25,6 +25,7 @@ Examples below:
 
     not downsampled example: pbmc <- s2_classify_cells(pbmc, c("/path/to/sample1/", "/path/to/sample2"), sample_names=c("sample1", "sample2"), marker_file_path="/path/to/marker/markerfile.txt", classifier="/path/to/classifier/classifier.rds")  - samples have to be in the same order as step 1.  
 
+
 3. s3_DE_analysis - function will perform over differential gene expression.  Will perform DE analysis on individual clusters between conditions of option is specified. Genes are considered DE if log fold change is >= 1.2 and adjusted P value < 0.05 (both of these are adjustable with parameters LFC and pvalue). All results will be outputed into the defualt results folder s3_DE_results/ in your working directory. Examples below (same no matter if downsampling was used or not): 
 
     run DE between to conditions: s3_DE_analysis(pbmc, "condition1", "condition2")
@@ -33,8 +34,8 @@ Examples below:
 
 
 ## Other important notes 
-1. The single cell R library Seurat <a href="https://satijalab.org/seurat/"  target="_blank"> is used in this Wrapper.  
-2. The cell type classifier garnett <a href="https://cole-trapnell-lab.github.io/garnett/docs/" target="_blank"> is used in this Wrapper.
+1.  <a href="https://satijalab.org/seurat/" target="_blank">  The single cell R library Seuratis used in this Wrapper.  
+2.  <a href="https://cole-trapnell-lab.github.io/garnett/docs/" target="_blank"> The cell type classifier garnett is used in this Wrapper.
 
 ## References 
 1. Integrating single-cell transcriptomic data across different conditions, technologies, and species Butler et al. 2018 <a href="https://www.nature.com/articles/nbt.4096" target="_blank">
