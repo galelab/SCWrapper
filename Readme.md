@@ -16,9 +16,9 @@ SCWrapper currently has 3 primary functions
 
 2. classify_pbmc_cells - function will perform cell-type classification with garnett.  Will need a marker file and user to use a pre-compiled classifier or generate their own from their data. All results will be outputed into the defualt results folder s2_garnett_classifier_results/ in your working directory.  Example marker files and compiled classifiers can be found at https://cole-trapnell-lab.github.io/garnett/classifiers/. Note that parameters that are altered from the defualt parameters in garnett are:
 
-⋅⋅* In train_cell_classifier function cluster_extend_max_frac_incorrect=0, cluster_extend_max_frac_unknown=1, and verbose=TRUE 
+- In train_cell_classifier function cluster_extend_max_frac_incorrect=0, cluster_extend_max_frac_unknown=1, and verbose=TRUE 
 
-⋅⋅* Examples below:
+- Examples below:
 
     downsampled example: pbmc <- s2_classify_cells(pbmc, "/path/to/Fresh_Aggregate/" marker_file_path="/path/to/marker/markerfile.txt", classifier="/path/to/classifier/classifier.rds")
 
@@ -27,9 +27,9 @@ SCWrapper currently has 3 primary functions
 
 3. s3_DE_analysis - function will perform over differential gene expression.  Will perform DE analysis on individual clusters between conditions of option is specified. Genes are considered DE if log fold change is >= 1.2 and adjusted P value < 0.05 (both of these are adjustable with parameters LFC and pvalue). All results will be outputed into the defualt results folder s3_DE_results/ in your working directory. Examples below (same no matter if downsampling was used or not): 
 
-    run DE between to conditions: s3_DE_analysis(pbmc, "condition1", "condition2")
-    run DE between clusters in two different conditions: s3_DE_analysis(pbmc, "condition1", "condition2", cluster_DE=TRUE)
-    run DE between conditions and generate violin plots of DE genes: s3_DE_analysis(pbmc, "condition1", "condition2", individual_plots=TRUE)
+- run DE between to conditions: s3_DE_analysis(pbmc, "condition1", "condition2")
+- run DE between clusters in two different conditions: s3_DE_analysis(pbmc, "condition1", "condition2", cluster_DE=TRUE)
+- run DE between conditions and generate violin plots of DE genes: s3_DE_analysis(pbmc, "condition1", "condition2", individual_plots=TRUE)
 
 
 ## Other important notes 
