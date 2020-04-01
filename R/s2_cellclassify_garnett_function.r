@@ -45,6 +45,7 @@ s2_classify_cells <- function(seurat_data, path_10x_data, sample_names = FALSE,
             cell_metadata = cell_meta_data,
             gene_metadata = gene_meta_data
         )
+
     } else {
         counter <- 1
         pbmc_list <- list()
@@ -149,20 +150,36 @@ s2_classify_cells <- function(seurat_data, path_10x_data, sample_names = FALSE,
 
     seurat_data[["garnett_cluster_extend"]] <- rpbmc_cds$cluster_ext_type_final
 
-    counter <- 1
-    for (barcodes in barcode_list) {
-        overlap_vector <- intersect(as.character(barcodes), colnames(rpbmc_cds))
-        rpbmc_cds_sub <- rpbmc_cds[, as.character(overlap_vector)]
-        visualize_data(rpbmc_cds_sub, results_path, sample_names[counter])
-        counter <- counter + 1
+    if (isTRUE(downsampled)) {
+        samps <- as.character(unique(seurat_data$sample))
+        barcodes <- as.character(rpbmc_cds$barcode)
+        for (counter in 1:(length(samps))) {
+            sample_barcodes <- c()
+            for (b in 1:(length(barcodes))) {
+                if (endsWith(as.character(barcodes[b]), as.character(counter))) {
+                    sample_barcodes[b] <- barcodes[b]
+                }
+            }
+            overlap_vector <- intersect(sample_barcodes, colnames(rpbmc_cds))
+            rpbmc_cds_sub <- rpbmc_cds[, as.character(overlap_vector)]
+            visualize_data(rpbmc_cds_sub, results_path, samps[counter])
+            counter <- counter + 1
+        }
+    } else {
+        counter <- 1
+        for (barcodes in barcode_list) {
+            overlap_vector <- intersect(as.character(barcodes), colnames(rpbmc_cds))
+            rpbmc_cds_sub <- rpbmc_cds[, as.character(overlap_vector)]
+            visualize_data(rpbmc_cds_sub, results_path, sample_names[counter])
+            counter <- counter + 1
+        }
     }
 
     if (isTRUE(save_object)) {
         saveRDS(seurat_data, paste0(results_path, "/SC_pbmc_norm_object.rds"))
     }
 
-
-    return(rpbmc_cds)
+    return(seurat_data)
 }
 
 visualize_data <- function(rpbmc_cds, results_path, sample) {
