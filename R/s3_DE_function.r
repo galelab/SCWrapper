@@ -73,14 +73,14 @@ s3_DE_analysis <- function(pbmc, ident_1, ident_2, LFC = 0.26,
                         size = 2.5,
                         features = rownames(im.markers)
                     )
-                    ggsave(paste0(results_path, "heatmap_", cluster, ".png"),
+                    ggsave(paste0(results_path, "/heatmap_", cluster, ".png"),
                         width = 11, dpi = 300
                     )
 
                     VlnPlot(immune.small, features = head(rownames(im.markers)))
 
                     ggsave(paste0(
-                        results_path, "Vnplot_",
+                        results_path, "/Vnplot_",
                         cluster, ".png"
                     ),
                     width = 11, dpi = 300
@@ -95,7 +95,7 @@ s3_DE_analysis <- function(pbmc, ident_1, ident_2, LFC = 0.26,
             }
         }
         if (individual_gene_plots == TRUE) {
-            results_path <- generate_folder(paste0(results_path, "IndividualGenePlots/"))
+            results_path <- generate_folder(paste0(results_folder, "/", ident_1, "_", ident_2, "/IndividualGenePlots/"))
             # unlink(paste0(results_folder, "/*"))
             for (gene in unique(allmarkers)) {
                 VlnPlot(pbmc,
