@@ -134,6 +134,7 @@ s2_classify_cells <- function(seurat_data, path_10x_data, sample_names = FALSE,
         cluster_extend_max_frac_unknown = 1,
         cds_gene_id_type = cds_gene_type
     )
+    print(unique(rpbmc_cds$cell_type))
     rpbmc_cds <- final_cds_garnett_classification(rpbmc_cds)
 
     marker_check <- check_markers(rpbmc_cds, marker_file_path,
