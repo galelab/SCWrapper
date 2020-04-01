@@ -1,7 +1,7 @@
 
 # Gale Lab single-cell analysis pipeline
 
-Goal of this software is to provide a pipeline for lab members to analyze gene expression data
+Goal of this software is to provide a pipeline for lab members to analyze single cell gene expression data
 
 
 ## Install 
