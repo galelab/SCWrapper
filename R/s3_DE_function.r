@@ -27,9 +27,6 @@ s3_DE_analysis <- function(pbmc, ident_1, ident_2, LFC = 0.26,
     unlink(paste0(results_path, "/*"))
 
     Idents(pbmc) <- pbmc$sample
-    print (Idents(pbmc))
-    print (ident_1)
-    print (ident_2)
     im.markers <- get_DE_between_conditions(
         pbmc,
         ident_1, ident_2,
