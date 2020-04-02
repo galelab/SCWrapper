@@ -118,11 +118,8 @@ s2_classify_cells <- function(seurat_data, path_10x_data, sample_names = FALSE,
             marker_file = marker_file_path,
             db = org.Hs.eg.db,
             cds_gene_id_type = cds_gene_type,
-            cluster_extend_max_frac_incorrect = 0,
-            cluster_extend_max_frac_unknown = 1,
             num_unknown = 500,
-            verbose = TRUE,
-            marker_file_gene_id_type = marker_file_gene_type,
+            marker_file_gene_id_type = marker_file_gene_type
         )
     }
     ## Classify cells with classifer built previously
@@ -149,6 +146,7 @@ s2_classify_cells <- function(seurat_data, path_10x_data, sample_names = FALSE,
 
     visualize_data(rpbmc_cds, results_path, "all")
 
+    seurat_data[["garnett_cell_type"]] <- rpbmc_cds$cell_type
     seurat_data[["garnett_cluster_extend"]] <- rpbmc_cds$cluster_ext_type_final
 
     if (isTRUE(downsampled)) {
